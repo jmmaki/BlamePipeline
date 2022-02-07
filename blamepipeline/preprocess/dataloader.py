@@ -18,66 +18,30 @@ import string
 
 from .. import DATA_DIR
 
-BLAME_DATA = os.path.join(DATA_DIR, 'blamedata')
+BLAME_DATA = (os.path.join(DATA_DIR, 'Jan2013-2017')
 
-NYT_PATH = os.path.join(BLAME_DATA, 'NYT')
-USA_PATH = os.path.join(BLAME_DATA, 'USA')
-WSJ_PATH = os.path.join(BLAME_DATA, 'WSJ')
+FOX_PATH = os.path.join(BLAME_DATA, 'Hannity (opinion)/')
 
-
-# Article structure for USA today, New York Times, and Wall Street Journal
-USA_PATTERN = r'USA TODAY\s*(?P<date>\w+ \d+, \d+ \w+).*'\
-              r'\s*\w+ EDITION\s*(?P<title>^[^\n]*$)'\
+# Article structure for USA today, New York Times, and Wall Street Journal <- comment by og author
+#Patterns for USA and NYT are doc file formats from NexisUni (formerly LexisNexis)
+#I changed the USA Today structure to matche Fox news structure
+FOX_PATTERN = r'Fox News Network\s*(?P<title>\w+ \d+, \d+ \w+).*'\
               r'\s*(?P<subtitle>(?!^BYLINE.*$)^[^\n]*$)'\
-              r'\s*(BYLINE: (?P<author>[^\n]*))?'\
-              r'\s*SECTION: ((?P<section>[\w]+); )?Pg\. \w+'\
-              r'\s*LENGTH: (?P<length>\d+ words)'\
-              r'\s*(?P<content>.*)LOAD-DATE'
+              r'\s*SECTION: ((?P<section>[\w]+); )?\. \w+' \
+              r'\s*LENGTH: (?P<length>\d+ words)' \
+              r'\s*(BYLINE: (?P<author>[^\n]*))?' \
+              r'\s*GUESTS: (?P<guests>[^\n]*))?' \
+              r'\s*(?P<content>.*)LOAD-DATE' \
 
-NYT_PATTERN = r'The New York Times\s*'\
-              r'(?P<date>\w+ \d+, \d+ \w+)\s*'\
-              r'(^.*$\s*)?'\
-              r'((\w+ Edition[^\n]*)|(The New York Times on the Web))\s*'\
-              r'(?P<title>(?!((BYLINE)|(SECTION)).*$)^[^\n]*$)\s*'\
-              r'(BYLINE: (?P<author>.*))?\s*'\
-              r'SECTION: Section \w*; Column \w*;\s(?P<section>.*); Pg\. \w*\s*'\
-              r'LENGTH: (?P<length>\d+ words)\s*'\
-              r'(?:DATELINE:(?:[^\n]*$\s*))?(?P<content>.*)URL:'
 
-WSJ_PATTERN = r'(\s*\bSE\b\s*)?'\
-              r'(?P<title>(?!(HD))[^\n]*)\s*'\
-              r'(\bHD\b\s*)?'\
-              r'(?P<subtitle>(?!^(By.*)|(\w+ words)$)^[^\n]*)\s*'\
-              r'(\bBY\b\s*)?'\
-              r'(By (?P<author>[^\n]*$)\s*)?'\
-              r'(\bWC\b\s*)?'\
-              r'(?P<length>[\d,]+ words$)\s*'\
-              r'(\bPD\b\s*)?'\
-              r'(?P<date>\d+ \w+ \d+)\s*'\
-              r'(\bSN\b\s*)?'\
-              r'The Wall Street Journal\s*'\
-              r'(\bSC\b\s*)?'\
-              r'(?P<section>\w+)\s*'\
-              r'(\bPG\b\s*)?'\
-              r'(\w+\s*)?'\
-              r'(\bLA\b\s*)?'\
-              r'(English\s*)?'\
-              r'(\bCY\b\s*)?'\
-              r'\(Copyright \(c\) \d+, Dow Jones & Company, Inc\.\)\s*'\
-              r'(\bLP\b\s*)?'\
-              r'(?P<content>.*)License this article from Dow Jones Reprint Service\s*'\
-              r'(?:.*)\s*'\
-              r'Document (?P<id>\w+)'
 
 # compile regex
-PATTERNS = {'USA': USA_PATTERN, 'NYT': NYT_PATTERN, 'WSJ': WSJ_PATTERN}
+PATTERNS = {'FOX': FOX_PATTERN}
 REGEX = {source: re.compile(
     PATTERNS[source], re.DOTALL | re.MULTILINE) for source in PATTERNS}
 
-# 4 October 2007
-WSJ_DATE_FORMAT = '%d %B %Y'
 # June 29, 2010 Tuesday
-USA_NYT_DATE_FORMAT = '%B %d, %Y %A'
+FOX_DATE_FORMAT = '%B %d, %Y %A'
 
 
 class DBReader():
@@ -121,7 +85,7 @@ class Articles():
     A list of news articles.
     Input: filename
     Output: List[{Article}]
-    Article: {date, title, subtitle, author, section, length, content}
+    Article: {date, title, subtitle, author, section, length, guests, content}
     '''
 
     def __init__(self, filename, source):
@@ -141,7 +105,7 @@ class Articles():
         '''
         Using regex to extract information
         raw_article: str
-        return: {date, title, subtitle, author, section, length, content}
+        return: {date, title, subtitle, author, section, length, guests, content}
         '''
 
         regex = REGEX[self.source]
@@ -170,13 +134,16 @@ class Articles():
             section = search_res.group('section')
             if section:
                 section = section.strip()
+            guests = search_res.group('guests')
+            if guests:
+                guests =guests.strip()
             length = search_res.group('length')
             content = search_res.group('content')
             if content:
                 content = content.strip().replace("''", '"')
 
             article = {'date': date, 'title': title, 'subtitle': subtitle,
-                       'author': author, 'section': section, 'length': length,
+                       'author': author, 'section': section, 'length': length, 'guests': guests,
                        'content': content}
         else:
             article = None
@@ -187,8 +154,8 @@ class Articles():
         '''
         format date string to 'YYYYmmdd'
         '''
-        if self.source == 'USA' or self.source == 'NYT':
-            old_format = USA_NYT_DATE_FORMAT
+        if self.source == 'FOX':
+            old_format = FOX_DATE_FORMAT
         elif self.source == 'WSJ':
             old_format = WSJ_DATE_FORMAT
         reformat = '%Y%m%d'
@@ -206,7 +173,7 @@ class Dataset():
     '''A class interface to access datasets'''
 
     def __init__(self, source):
-        dataset_dir = {'NYT': NYT_PATH, 'USA': USA_PATH, 'WSJ': WSJ_PATH}
+        dataset_dir = {'FOX': FOX_PATH}
         if source not in dataset_dir:
             raise ValueError(
                 '{} is not supported yet. Consider {} instead'.format(
@@ -233,7 +200,7 @@ class Dataset():
         '''
         article_data = []
         for filename in self.files:
-            if filename.endswith('.txt'):
+            if filename.endswith('.docx'):
                 article_data += Articles(
                     os.path.join(self.dirname, filename),
                     self.source).get_articles()
@@ -246,7 +213,7 @@ def main():
     Entry of the program.
     '''
     print('Dataset statistics:')
-    datasetnames = ['USA', 'NYT', 'WSJ']
+    datasetnames = ['FOX']
 
     for datasetname in datasetnames:
         print('\n{}:'.format(datasetname))

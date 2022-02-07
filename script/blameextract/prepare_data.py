@@ -35,11 +35,11 @@ def entity_merge_global(args):
     entity2id: {entity name (tuple) -> longest entity name (str) }
     '''
     entity_json_path = os.path.join(DATA_DIR, 'entity.json')
-    entity_txt_path = os.path.join(DATA_DIR, 'entity.txt')
+    entity_docx_path = os.path.join(DATA_DIR, 'entity.docx')
     entity2id_path = os.path.join(DATA_DIR, 'entity2id.pkl')
 
     if not args.data_force and os.path.exists(entity_json_path) and\
-            os.path.exists(entity_txt_path) and\
+            os.path.exists(entity_docx_path) and\
             os.path.exists(entity2id_path):
         print(f'Load entity2id from {entity2id_path}')
         with open(entity2id_path, 'rb') as f:
@@ -84,11 +84,11 @@ def entity_merge_global(args):
     entity2alias = {e: sorted(alias, key=lambda t: -len(t)) for e, alias in entity2alias.items()}
     # save
     with open(entity_json_path, 'w') as entity_j,\
-            open(entity_txt_path, 'w') as entity_t:
+            open(entity_docx_path, 'w') as entity_t:
         for eid, alias in entity2alias.items():
             entity_j.write(json.dumps({'entityid': eid, 'alias': alias}) + '\n')
             entity_t.write(f'{" ".join(eid)}: {", ".join([" ".join(e) for e in alias])}\n')
-    print(f'Write entity and alias to {entity_json_path} and {entity_txt_path}')
+    print(f'Write entity and alias to {entity_json_path} and {entity_docx_path}')
 
     with open(entity2id_path, 'wb') as eid_f:
         pickle.dump(entity2id, eid_f)
@@ -370,8 +370,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Preprocess data for blame extractor')
     parser.register('type', 'bool', str2bool)
     # files
-    parser.add_argument('--dataset-file', type=str, default='dataset.json')
-    parser.add_argument('--samples-file', type=str, default='samples.json')
+    parser.add_argument('--dataset-file', type=str, default='*')
+    parser.add_argument('--samples-file', type=str, default='*')
     # data
     parser.add_argument('--merge-entity', type=str, default='local',
                         help='build a merge dict locally(per article) or globally(dataset level)')

@@ -9,7 +9,7 @@ from collections import defaultdict
 
 from .match_article_entry import match_data
 
-sources = ['USA', 'NYT', 'WSJ']
+sources = ['FOX']
 
 cases = defaultdict(int)
 

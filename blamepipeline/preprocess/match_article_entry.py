@@ -56,7 +56,7 @@ def match_data(source):
 
 def main(args):
     if args.source == 'all':
-        sources = ['USA', 'NYT', 'WSJ']
+        sources = ['FOX']
     else:
         sources = [args.source.upper()]
     for source in sources:
@@ -70,6 +70,6 @@ def main(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='match articles and entries')
-    parser.add_argument('--source', type=str, choices=['all', 'wsj', 'nyt', 'usa'], default='all')
+    parser.add_argument('--source', type=str, choices=['all', 'fox'], default='all')
     args = parser.parse_args()
     main(args)
