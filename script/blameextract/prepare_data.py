@@ -25,7 +25,7 @@ from tqdm import tqdm
 
 from blamepipeline import DATA_DIR as DATA_ROOT
 
-DATA_DIR = os.path.join(DATA_ROOT, 'datasets')
+DATA_DIR = DATA_ROOT
 
 
 def entity_merge_global(args):
@@ -370,8 +370,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Preprocess data for blame extractor')
     parser.register('type', 'bool', str2bool)
     # files
-    parser.add_argument('--dataset-file', type=str, default='*')
-    parser.add_argument('--samples-file', type=str, default='*')
+    parser.add_argument('--dataset-file', type=str, default='Jan2013-2017/Hannity (opinion)/datasets/_American Sniper_ Patriotism Under Fire_.docx')
+    parser.add_argument('--samples-file', type=str, default='Jan2013-2017/Hannity (opinion)/datasets/_American Sniper_ Patriotism Under Fire_.docx')
     # data
     parser.add_argument('--merge-entity', type=str, default='local',
                         help='build a merge dict locally(per article) or globally(dataset level)')

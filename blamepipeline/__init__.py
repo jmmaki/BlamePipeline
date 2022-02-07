@@ -12,12 +12,10 @@ from pathlib import PosixPath
 if sys.version_info < (3, 5):
     raise RuntimeError('RLQA supports Python 3.5 or higher.')
 
-DATA_DIR = '/Users/jessicamaki/Documents/GitHub/BlamePipeline/data/'
-'''
-    (
+DATA_DIR =(
     os.getenv('BLAME_DATA') or
-    os.path.join(PosixPath(__file__).absolute().parents[1].as_posix(), 'Files1-1742')
+    os.path.join(PosixPath(__file__).absolute().parents[1].as_posix(), 'data')
 )
-'''
+
 
 from . import claimclass
