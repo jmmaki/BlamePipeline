@@ -16,7 +16,8 @@ import re
 import datetime
 import string
 
-from .. import DATA_DIR
+#fix relative import statement to absolute import statement
+from blamepipeline import DATA_DIR
 
 BLAME_DATA = os.path.join(DATA_DIR, 'Jan2013-2017')
 
