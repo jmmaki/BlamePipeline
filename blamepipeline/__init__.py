@@ -17,5 +17,5 @@ DATA_DIR =(
     os.path.join(PosixPath(__file__).absolute().parents[1].as_posix(), 'data')
 )
 
-
-from . import claimclass
+#changed the relative import statement to an absolute import to fix "no known parent package" error
+from blamepipeline import claimclass
