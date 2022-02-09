@@ -38,8 +38,7 @@ FOX_PATTERN = r'Fox News Network\s*(?P<title>\w+ \d+, \d+ \w+).*'\
 
 # compile regex
 PATTERNS = {'FOX': FOX_PATTERN}
-REGEX = {source: re.compile(
-    PATTERNS[source], re.DOTALL | re.MULTILINE) for source in PATTERNS}
+REGEX = {source: re.compile(PATTERNS[source], re.DOTALL | re.MULTILINE) for source in PATTERNS}
 
 # June 29, 2010 Tuesday
 FOX_DATE_FORMAT = '%B %d, %Y %A'
@@ -123,7 +122,7 @@ class Articles():
                 title = title.strip()
                 if title.endswith(';'):
                     title = title[:-1]
-            if self.source == 'NYT':
+            if self.source == 'FOX':
                 subtitle = ''  # no such data in NYT database
             else:
                 subtitle = search_res.group('subtitle')

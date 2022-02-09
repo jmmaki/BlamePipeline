@@ -1,4 +1,18 @@
 termcolor
 tqdm
 numpy
+
 pydev
+
+import _sre
+import sre_parse
+from sre_constants import *
+
+import enum
+import sre_compile
+import sre_parse
+import functools
+try:
+    import _locale
+except ImportError:
+    _locale = None
