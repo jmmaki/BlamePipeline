@@ -19,7 +19,7 @@ for docfilename in os.listdir(directory):
         The file path you place here (in quotations) will write your files to that path
         At the end of the file path, ensure there is a forward slash or backslash to write the files INTO that folder
         Windows users will use a back slash
-        Unix systems (Linux, OS X (apple users), and Android will all use a forward slash
+        Unix systems (Linux, OS X (apple users), and Android) will all use a forward slash
         '''
         with open("/Users/Desktop/Folder/subfolder/folder the files go into/" + filename +".txt", 'x') as NewTxtFile:
             NewTxtFile.write(txtfile)
