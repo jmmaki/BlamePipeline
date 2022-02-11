@@ -11,7 +11,12 @@ import random
 
 import torch
 import torch.nn as nn
-from . import layers
+'''
+fixed relative import statement to full absolute import statement
+relative import statement was recursive
+'''
+
+from blamepipeline.blameextract import layers
 
 
 # ------------------------------------------------------------------------------

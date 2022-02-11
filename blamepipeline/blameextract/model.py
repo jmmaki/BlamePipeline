@@ -18,8 +18,8 @@ import torch
 import torch.optim as optim
 import torch.nn.functional as F
 
-from .config import override_model_args
-from .extractor import LSTMContextClassifier, EntityClassifier
+from config import override_model_args
+from extractor import LSTMContextClassifier, EntityClassifier
 
 
 logger = logging.getLogger(__name__)

@@ -14,7 +14,7 @@ import unicodedata
 import torch
 from torch.utils.data import Dataset
 from torch.utils.data.sampler import Sampler
-from .vector import vectorize
+from vector import vectorize
 
 logger = logging.getLogger(__name__)
 

@@ -6,7 +6,7 @@
 # @Last Modified by:  Shuailong
 # @Last Modified time: 2018-05-09 11:17:34
 
-from .. import DATA_DIR
+from blamepipeline import DATA_DIR
 
 DEFAULTS = {
 
