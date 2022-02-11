@@ -7,7 +7,7 @@ Match articles with annotated blame entities.
 import argparse
 from collections import defaultdict
 
-from .match_article_entry import match_data
+from blamepipeline.preprocess.match_article_entry import match_data
 
 sources = ['FOX']
 

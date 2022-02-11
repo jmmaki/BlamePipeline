@@ -6,7 +6,7 @@
 # @Last Modified by:  Shuailong
 # @Last Modified time: 2018-05-25 16:30:41
 
-from .. import DATA_DIR
+from blamepipeline import DATA_DIR
 
 DEFAULTS = {
 
@@ -18,4 +18,4 @@ def set_default(key, value):
     DEFAULTS[key] = value
 
 
-from .model import EntityClassifier
+from blamepipeline.entityclass.model import EntityClassifier

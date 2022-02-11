@@ -8,7 +8,7 @@
 
 import torch
 import torch.nn as nn
-from . import layers
+from blamepipeline.claimclass import layers
 
 
 # ------------------------------------------------------------------------------

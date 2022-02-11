@@ -12,7 +12,7 @@ BlameExtractor Class Wrapper
 
 
 import logging
-from .extractor import LexiconClassifier
+from extractor import LexiconClassifier
 
 
 logger = logging.getLogger(__name__)

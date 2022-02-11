@@ -6,7 +6,8 @@
 # @Last Modified by:  Shuailong
 # @Last Modified time: 2018-05-10 16:03:23
 
-from .. import DATA_DIR
+#fixed relative import statement
+from blamepipeline import DATA_DIR
 
 DEFAULTS = {
 
@@ -17,5 +18,5 @@ def set_default(key, value):
     global DEFAULTS
     DEFAULTS[key] = value
 
-
-from .model import BlameExtractor as BaselineModel
+#fixed relative import statement
+from blamepipeline.simplebaseline.model import BlameExtractor as BaselineModel

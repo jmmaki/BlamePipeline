@@ -15,10 +15,10 @@ from collections import Counter
 
 import torch
 
-from .data import Dictionary
-from .data import BlameTieDataset
-from .data import SubsetWeightedRandomSampler
-from . import vector
+from blamepipeline.entityclass.data import Dictionary
+from blamepipeline.entityclass.data import BlameTieDataset
+from blamepipeline.entityclass.data import SubsetWeightedRandomSampler
+from blamepipeline.entityclass import vector
 
 logger = logging.getLogger(__name__)
 

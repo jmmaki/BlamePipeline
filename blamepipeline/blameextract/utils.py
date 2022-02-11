@@ -18,7 +18,7 @@ import torch
 from data import Dictionary
 from data import BlameTieDataset
 from data import SubsetWeightedRandomSampler
-from . import vector
+from blamepipeline.blameextract import vector
 
 logger = logging.getLogger(__name__)
 

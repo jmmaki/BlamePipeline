@@ -18,16 +18,17 @@ import string
 
 #fix relative import statement to absolute import statement
 from blamepipeline import DATA_DIR
-
+#sets folder under data
 BLAME_DATA = os.path.join(DATA_DIR, 'Jan2013-2017')
 
-FOX_PATH = os.path.join(BLAME_DATA, 'Hannity (opinion)/')
+#sets subfolders, be sure to include any subsub folders to access data
+FOX_PATH = os.path.join(BLAME_DATA, 'Hannity (opinion)/datasets')
 
 # Article structure for USA today, New York Times, and Wall Street Journal <- comment by og author
 #Patterns for USA and NYT are doc file formats from NexisUni (formerly LexisNexis)
 #I changed the USA Today structure to matche Fox news structure
 FOX_PATTERN = r'Fox News Network\s*(?P<title>\w+ \d+, \d+ \w+).*'\
-              r'\s*(?P<subtitle>(?!^BYLINE.*$)^[^\n]*$)'\
+              r'\s*(?P<subtitle>(?!^BYLINE.*$)^[^\n]*$\)'\
               r'\s*SECTION: ((?P<section>[\w]+); )?\. \w+' \
               r'\s*LENGTH: (?P<length>\d+ words)' \
               r'\s*(BYLINE: (?P<author>[^\n]*))?' \
@@ -54,7 +55,7 @@ class DBReader():
     '''
 
     def __init__(self, filename, source):
-        # print('Reading from {}...'.format(filename))
+        print('Reading from {}...'.format(filename))
         self.source = source
         self.entries = []
         with open(filename) as csv_file:

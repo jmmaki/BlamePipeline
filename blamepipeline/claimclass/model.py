@@ -18,8 +18,9 @@ import torch
 import torch.optim as optim
 import torch.nn.functional as F
 
-from .config import override_model_args
-from .classifier import RNNClassifier, CNNClassifier
+#fix relative import statements
+from blamepipeline.claimclass.config import override_model_args
+from blamepipeline.claimclass.classifier import RNNClassifier, CNNClassifier
 
 
 """Sent Classifier model"""

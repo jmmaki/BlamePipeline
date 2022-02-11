@@ -14,10 +14,11 @@ from collections import Counter
 
 import torch
 
-from .data import Dictionary
-from .data import SentenceDataset
-from .data import SubsetWeightedRandomSampler
-from . import vector
+#fixed relative import statements
+from blamepipeline.claimclass.data import Dictionary
+from blamepipeline.claimclass.data import SentenceDataset
+from blamepipeline.claimclass.data import SubsetWeightedRandomSampler
+from blamepipeline.claimclass import vector
 
 logger = logging.getLogger(__name__)
 

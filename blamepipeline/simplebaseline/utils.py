@@ -14,8 +14,8 @@ import random
 
 import torch
 
-from .data import BlameTieDataset
-from . import vector
+from data import BlameTieDataset
+from blamepipeline.simplebaseline import vector
 
 logger = logging.getLogger(__name__)
 

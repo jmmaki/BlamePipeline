@@ -6,7 +6,8 @@
 # This source code is licensed under the license found in the
 # LICENSE file in the root directory of this source tree.
 
-from .. import DATA_DIR
+#fixed relative import statement
+from blamepipeline import DATA_DIR
 
 DEFAULTS = {
 
@@ -16,4 +17,5 @@ def set_default(key, value):
     global DEFAULTS
     DEFAULTS[key] = value
 
-from .model import SentClassifier
+#fixed relative import statement
+from blamepipeline.claimclass.model import SentClassifier

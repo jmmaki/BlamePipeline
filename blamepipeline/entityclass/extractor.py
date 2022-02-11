@@ -9,7 +9,7 @@
 
 import torch
 import torch.nn as nn
-from . import layers
+from blamepipeline.entityclass import layers
 
 
 # ------------------------------------------------------------------------------

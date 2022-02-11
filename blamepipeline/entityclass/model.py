@@ -19,8 +19,8 @@ import torch.optim as optim
 import torch.nn.functional as F
 from torch.autograd import Variable
 
-from .config import override_model_args
-from .extractor import LSTMContextClassifier
+from blamepipeline.entityclass.config import override_model_args
+from blamepipeline.entityclass.extractor import LSTMContextClassifier
 
 
 logger = logging.getLogger(__name__)

@@ -7,7 +7,7 @@ Match articles with annotated data
 from collections import defaultdict
 import argparse
 
-from .dataloader import Dataset
+from blamepipeline.preprocess.dataloader import Dataset
 
 case1, case2 = 0, 0
 
