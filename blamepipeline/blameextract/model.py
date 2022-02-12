@@ -18,7 +18,7 @@ import torch
 import torch.optim as optim
 import torch.nn.functional as F
 
-from config import override_model_args
+from blamepipeline.blameextract.config import override_model_args
 #fixed relative import statement
 from blamepipeline.blameextract.extractor import LSTMContextClassifier, EntityClassifier
 

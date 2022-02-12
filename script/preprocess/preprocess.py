@@ -54,7 +54,7 @@ def tokenize_entity(tokenizer, entity):
 def main(args):
     print(args)
     if args.source == 'all':
-        sources = ['USA', 'NYT', 'WSJ']
+        sources = ['FOX']
     else:
         sources = [args.source.upper()]
     # Acquire data
@@ -141,7 +141,7 @@ def str2bool(v):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Make training data')
     parser.register('type', 'bool', str2bool)
-    parser.add_argument('--source', type=str, default='all', choices=['nyt', 'wsj', 'usa', 'all'])
+    parser.add_argument('--source', type=str, default='all', choices=['fox', 'all'])
     parser.add_argument('--uncased', type='bool', default=False)
     parser.add_argument('--tokenize', type='bool', default=True)
     parser.add_argument('--ignore-claim', type='bool', default=True,

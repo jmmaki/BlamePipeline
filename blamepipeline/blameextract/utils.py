@@ -15,9 +15,9 @@ from collections import Counter
 
 import torch
 
-from data import Dictionary
-from data import BlameTieDataset
-from data import SubsetWeightedRandomSampler
+from blamepipeline.blameextract.data import Dictionary
+from blamepipeline.blameextract.data import BlameTieDataset
+from blamepipeline.blameextract.data import SubsetWeightedRandomSampler
 from blamepipeline.blameextract import vector
 
 logger = logging.getLogger(__name__)
