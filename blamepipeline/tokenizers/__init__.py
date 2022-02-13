@@ -17,7 +17,7 @@ def set_default(key, value):
     DEFAULTS[key] = value
 
 
-from .corenlp_tokenizer import CoreNLPTokenizer
+from blamepipeline.tokenizers.corenlp_tokenizer import CoreNLPTokenizer
 
 # Spacy is optional
 try:

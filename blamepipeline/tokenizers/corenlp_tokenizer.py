@@ -13,8 +13,8 @@ import json
 import pexpect
 import copy
 
-from .tokenizer import Tokens, Tokenizer
-from . import DEFAULTS
+from blamepipeline.tokenizers.tokenizer import Tokens, Tokenizer
+from blamepipeline.blameextract import DEFAULTS
 
 
 class CoreNLPTokenizer(Tokenizer):
