@@ -12,7 +12,6 @@ from blamepipeline import DATA_DIR
 
 
 DEFAULTS = {
-
 }
 
 

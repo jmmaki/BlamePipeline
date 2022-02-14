@@ -6,9 +6,17 @@
 # LICENSE file in the root directory of this source tree.
 
 import os
+import blamepipeline
+import spacy
+from blamepipeline import tokenizers
+
+try:
+    from spacy.spacy_tokenizer import SpacyTokenizer
+except ImportError:
+    pass
 
 DEFAULTS = {
-    'corenlp_classpath': os.getenv('CLASSPATH')
+
 }
 
 
@@ -20,10 +28,7 @@ def set_default(key, value):
 from blamepipeline.tokenizers.corenlp_tokenizer import CoreNLPTokenizer
 
 # Spacy is optional
-try:
-    from .spacy_tokenizer import SpacyTokenizer
-except ImportError:
-    pass
+
 
 
 def get_class(name):

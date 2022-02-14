@@ -24,16 +24,16 @@ BLAME_DATA = os.path.join(DATA_DIR, 'Jan2013-2017')
 #sets subfolders, be sure to include any subsub folders to access data
 FOX_PATH = os.path.join(BLAME_DATA, 'Hannity (opinion)/datasets')
 
-# Article structure for USA today, New York Times, and Wall Street Journal <- comment by og author
+# Article structure for USA today, New York Times, and Wall Street Journal <- comment by author
 #Patterns for USA and NYT are doc file formats from NexisUni (formerly LexisNexis)
 #I changed the USA Today structure to matche Fox news structure
 FOX_PATTERN = r'Fox News Network\s*(?P<title>\w+ \d+, \d+ \w+).*'\
               r'\s*(?P<subtitle>(?!^BYLINE.*$)^[^\n]*$\)'\
-              r'\s*SECTION: ((?P<section>[\w]+); )?\. \w+' \
+              r'(\s|\u2022)Section:((\s|\u2022))((?P<section>[\w]+);((\s|\u2022)))?((\s|\u2022))\w+' \
               r'\s*LENGTH: (?P<length>\d+ words)' \
-              r'\s*(BYLINE: (?P<author>[^\n]*))?' \
+              r'\s*BYLINE: (?P<author>[^\n]*)?' \
               r'\s*GUESTS: (?P<guests>[^\n]*))?' \
-              r'\s*(?P<content>.*)LOAD-DATE' \
+              r'\s*(?P<content>.*)LOAD-DATE'\
 
 
 
@@ -201,7 +201,7 @@ class Dataset():
         '''
         article_data = []
         for filename in self.files:
-            if filename.endswith('.docx'):
+            if filename.endswith('.txt'):
                 article_data += Articles(
                     os.path.join(self.dirname, filename),
                     self.source).get_articles()

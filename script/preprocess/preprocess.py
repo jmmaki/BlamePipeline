@@ -18,12 +18,14 @@ from collections import defaultdict
 from termcolor import colored
 from tqdm import tqdm
 
+from stanfordcorenlp import StanfordCoreNLP
+
 from blamepipeline import DATA_DIR
 from blamepipeline.preprocess.match_article_entry import match_data
 from blamepipeline.preprocess.match_entity_article import filter_data
 from blamepipeline.tokenizers import CoreNLPTokenizer
 
-DATASET = os.path.join(DATA_DIR, 'datasets')
+DATASET = os.path.join(DATA_DIR, 'Jan2013-2017/Hannity (opinion)/datasets')
 
 
 def contains(entity_toks, article_toks):
@@ -68,7 +70,7 @@ def main(args):
         print('{} valid pairs.'.format(len(valid_pairs)))
         data += valid_pairs
     print(f'{len(data)} valid pairs in total.')
-    tokenizer = CoreNLPTokenizer(annotators={'ner'})
+    tokenizer = CoreNLPTokenizer(annotators={'ner'},)
     dataset_file = os.path.join(DATASET, 'dataset.json')
 
     if not args.cluster_article:
@@ -80,6 +82,7 @@ def main(args):
                     if d['claim']:
                         d['claim'] = tokenizer.tokenize(d['claim']).words(uncased=args.uncased)
                     d['content'] = tokenizer.tokenize(d['content']).words(uncased=args.uncased)
+                    print(d['content'])
                 f.write(json.dumps(d) + '\n')
     else:
         # clustering by article
